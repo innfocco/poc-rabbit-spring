@@ -1,13 +1,20 @@
 package poc.amqp;
 
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import java.io.IOException;
 
-@RabbitListener(queues = "entregas")
-public class Receiver {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    @RabbitHandler
-    public void receive(String in) {
-        System.out.println(" [x] Received '" + in + "'");
-    }
+@Component
+public class Receiver extends AbstractRabbitUser {
+	
+	boolean autoAck = true;
+	
+	@Autowired
+	Sender sender;
+	
+	public void receive() throws IOException {
+		getChannel().basicConsume(QUEUE_PEDIDOS, autoAck, "entregaSys", new MessageProcessor(getChannel(), sender));
+	}
+
 }

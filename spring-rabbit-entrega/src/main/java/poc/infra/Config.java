@@ -1,8 +1,10 @@
 package poc.infra;
 
 import org.springframework.amqp.core.Queue;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+import poc.amqp.Receiver;
 import poc.amqp.Sender;
 
 @Configuration
@@ -19,8 +21,8 @@ public class Config {
     }
 
     @Bean
-    public Object receiver() {
-        return new Object();
+    public Receiver receiver() {
+        return new Receiver();
     }
 
     @Bean

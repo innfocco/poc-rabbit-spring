@@ -14,6 +14,6 @@ public class Sender extends AbstractRabbitUser {
 	public void send(Pedido p) throws IOException {
     	Gson gson = new Gson();
         String message = gson.toJson(p);
-        getChannel().basicPublish("", QUEUE_PEDIDOS, null, message.getBytes());
+        getChannel().basicPublish("", QUEUE_ENTREGAS, null, message.getBytes());
     }
 }
